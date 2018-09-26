@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const history = require('connect-history-api-fallback');
 const express = require('express');
+const cors = require('cors')
 const apiRouter = require('./routes/api/apiRoutes');
 // const indexRouter = require('./routes/index');
 const app = express();
@@ -15,6 +16,7 @@ app.set('views', __dirname + '/../../dist');
 // app.engine('html', require('ejs').renderFile);
 app.set('port', process.env.PORT || 8081);
 
+app.use(cors())
 app.use(compression()); // Compress all routes
 app.use(helmet());
 app.use(morgan('combined'));

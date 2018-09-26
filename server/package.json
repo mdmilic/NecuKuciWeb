@@ -4,8 +4,8 @@
   "description": "Backend for NecuKuciWeb",
   "main": "index.js",
   "scripts": {
-    "start": "node src/necukuciservermain.js",
-    "start:dev": "nodemon src/necukuciservermain.js",
+    "start": "node src/servermain.js",
+    "start:dev": "nodemon src/servermain.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
