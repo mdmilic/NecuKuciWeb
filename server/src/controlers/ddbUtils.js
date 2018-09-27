@@ -28,7 +28,7 @@ exports.performPaginatedQuery = function (params, tableLastEvaluatedKeyFieldName
           // as we did not get our desired itemsPerPage. Remember ScannedCount and Count fields!!
           params.ExclusiveStartKey = data.LastEvaluatedKey;
           params.Limit = remainingItemsCount;
-          console.log('Query being paginated with ' + JSON.stringify(data.LastEvaluatedKey, undefined, 2));
+          // console.log('Query being paginated with ' + JSON.stringify(data.LastEvaluatedKey, undefined, 2));
           ddb.query(params, onQuery);
         }
       } else {

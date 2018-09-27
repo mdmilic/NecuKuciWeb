@@ -5,7 +5,8 @@ const router = express.Router();
 
 /* GET singup page. */
 router.get('/', function(req, res) {
-  res.render('index', { appTitle: 'A New Startup: Sign Up Today!'});
+  console.log('Matched signup route');
+  res.render('index', { appTitle: 'NecuKuci Travel Tracker: Sign Up Today!'});
 });
 
 module.exports = router;

@@ -28,6 +28,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 
 //api specific routes
+app.use(subdomain('signup.necukuci.us-east-1', signupRouter));
 app.use(subdomain('signup', signupRouter));
 //---------------
 
@@ -60,4 +61,4 @@ app.listen(app.get('port'), function () {
   console.log('Express listening on port ' + app.get('port'));
 });
 
-console.log('Server started!');
+console.log('Server started now!');

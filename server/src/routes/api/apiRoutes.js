@@ -7,7 +7,7 @@ const locationController = require('../../controlers/locationController');
 
 // Home page route
 router.get('/', function(req, res) {
-  res.send('API Home page');
+  res.send('You\'ve got API Home page');
 });
 
 // /location?userId=mdmilic&detailLevel=3 api
