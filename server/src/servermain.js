@@ -5,31 +5,42 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const history = require('connect-history-api-fallback');
 const express = require('express');
-const cors = require('cors')
+const cors = require('cors');
 const apiRouter = require('./routes/api/apiRoutes');
-// const indexRouter = require('./routes/index');
+const indexRouter = require('./routes/indexRoute');
 const app = express();
 
-app.set('views', __dirname + '/../../dist');
+// app.set('views', __dirname + '/../../dist');
 // app.set('view engine', 'pug');
 // app.set('view engine', 'ejs');
 // app.engine('html', require('ejs').renderFile);
 app.set('port', process.env.PORT || 8081);
 
-app.use(cors())
+app.use(cors());
 app.use(compression()); // Compress all routes
 app.use(helmet());
 app.use(morgan('combined'));
+
+//----- SUBDOMAIN
+const subdomain = require('express-subdomain');
+const signupRouter = require('./routes/signupRoute');
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+
+//api specific routes
+app.use(subdomain('signup', signupRouter));
+//---------------
+
 // app.use('/', indexRouter);
 app.use('/api', apiRouter);
-app.use('/static', express.static('dist/static')); // Serving static with nginix see 03_staticfiles.config
+app.use('/static', express.static(__dirname + '/../static')); // Serving static with nginix see 03_staticfiles.config
 app.use(history({
   verbose: true
 }));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  let err = new Error('Not Found ');
+  let err = new Error(req.originalUrl + ' Not Found, route matched ' + req.route);
   err.status = 404;
   next(err);
 });
