@@ -18,8 +18,8 @@ exports.get_location_params = function (awsConfig, userId, history, detailLevel,
     // When reading from GSI with time as sort key
     KeyConditionExpression: 'userId = :user and utcTimeMillis >= :utcMillis',
     // FilterExpression: 'contains (Subtitle, :topic)',
-    TableName: awsConfig.aws_table_name,
-    IndexName: awsConfig.aws_index,
+    TableName: awsConfig.aws_location_table_name,
+    IndexName: awsConfig.aws_location_table_index,
     ProjectionExpression: 'latitude, longitude, utcTimeMillis',
     ExclusiveStartKey: lastEvaluatedKey,
     // TODO: LIMIT IS REQUIRED FOR NOW, fix in ddbUtils.js

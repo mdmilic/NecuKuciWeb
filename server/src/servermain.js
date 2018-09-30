@@ -20,8 +20,12 @@ app.use(cors());
 app.use(compression()); // Compress all routes
 app.use(helmet());
 app.use(morgan('combined'));
-
 //----- SUBDOMAIN
+const bodyParser = require('body-parser');
+app.use(bodyParser.json()); // to support JSON bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+}));
 const subdomain = require('express-subdomain');
 const signupRouter = require('./routes/signupRoute');
 app.set('views', __dirname + '/views');
@@ -32,7 +36,7 @@ app.use(subdomain('signup.necukuci.us-east-1', signupRouter));
 app.use(subdomain('signup', signupRouter));
 //---------------
 
-// app.use('/', indexRouter);
+app.use('/', signupRouter);
 app.use('/api', apiRouter);
 app.use('/static', express.static(__dirname + '/../static')); // Serving static with nginix see 03_staticfiles.config
 app.use(history({

@@ -41,10 +41,26 @@ export default {
         clientId: clientID,
         accessToken: accessToken,
         resolution: 'standard_resolution',
-        template: '<a href="{{link}}" target="_blank" id="{{id}}"><img src="{{image}}" class="img-thumbnail img-fluid"/></a>',
+        template: '<a href="{{link}}" target="_blank" id="{{id}}"><img alt="{{user.full_name}}" src="{{image}}" class="img-thumbnail img-fluid"/><!--<div class="insta-caption"><span>{{likes}}{{comments}}</span><p>{{location}}</p><p>{{caption}}</p></div>--></a>',
         sortBy: 'most-recent',
         limit: 20,
-        links: false
+        links: false,
+
+        filter: function (image) {
+          console.log('Image returned: ' + JSON.stringify(image));
+          return image.type === 'image';
+        },
+        // TODO: Before image download starts
+        before: function () {
+          // Start the spinner
+        },
+        // After image download finishes
+        after: function () {
+          // Stop the spinner
+          if (!this.hasNext()) {
+            // disable load more btn if it exists
+          }
+        }
       });
       this.userFeed.run();
     }

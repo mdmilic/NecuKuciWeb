@@ -1,4 +1,9 @@
 const ddb = require('./databaseProvider');
+
+exports.putItem = function (params) {
+  return ddb.put(params).promise();
+};
+
 // Modified from better generic method which uses TS https://www.talentica.com/blogs/dynamo-db-pagination/
 exports.performPaginatedQuery = function (params, tableLastEvaluatedKeyFieldNames) {
   return new Promise((resolve, reject) => {

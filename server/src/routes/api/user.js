@@ -18,7 +18,7 @@ module.exports = (app) => {
     const docClient = new AWS.DynamoDB.DocumentClient();
     const userId = req.query.userId;
     const params = {
-      TableName: awsConfig.aws_table_name,
+      TableName: awsConfig.aws_location_table_name,
       KeyConditionExpression: 'userId = :i',
       ExpressionAttributeValues: {
         ':i': userId
