@@ -23,6 +23,6 @@ exports.get_location_params = function (awsConfig, userId, history, detailLevel,
     ProjectionExpression: 'latitude, longitude, utcTimeMillis',
     ExclusiveStartKey: lastEvaluatedKey,
     // TODO: LIMIT IS REQUIRED FOR NOW, fix in ddbUtils.js
-    Limit: 50000
+    Limit: 100000
   };
 };
