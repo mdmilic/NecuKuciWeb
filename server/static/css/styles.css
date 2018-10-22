@@ -1,6 +1,6 @@
 body
 {
-    background-size: contain;
+    background-size: cover;
     background: url('../images/NKSignupBackgroundBaikalLake.jpeg') fixed;
     background-position: center;
 }
