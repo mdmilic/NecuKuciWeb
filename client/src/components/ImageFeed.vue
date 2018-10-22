@@ -47,7 +47,6 @@ export default {
         links: false,
 
         filter: function (image) {
-          console.log('Image returned: ' + JSON.stringify(image));
           return image.type === 'image';
         },
         // TODO: Before image download starts
