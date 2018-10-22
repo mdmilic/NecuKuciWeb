@@ -1,8 +1,8 @@
 body
 {
-    background-size: cover;
     background: url('../images/NKSignupBackgroundBaikalLake.jpeg') fixed;
     background-position: center;
+    background-size: cover;
 }
 
 .titleText
