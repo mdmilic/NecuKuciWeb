@@ -1,5 +1,31 @@
 body
 {
-    background-size: cover;
+    background-size: contain;
     background: url('../images/NKSignupBackgroundBaikalLake.jpeg') fixed;
+    background-position: center;
+}
+
+.titleText
+{
+  font-family: 'Dancing Script', cursive;
+  text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+    0px 8px 13px rgba(0,0,0,0.1),
+    0px 18px 23px rgba(0,0,0,0.1);
+}
+
+.descriptionTitle
+{
+  font-family: 'Merriweather', serif;
+  font-size: 4rem;
+}
+
+.descriptionText
+{
+  font-family: 'Merriweather', serif;
+  font-size: 1.8rem;
+}
+
+.whiteTransparentBkg
+{
+  background: rgba(255, 255, 255, 0.5);
 }

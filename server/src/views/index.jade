@@ -3,26 +3,35 @@ extends layout
 block content
   div(class="container")
     div(class="header")
-      ul(class="nav nav-pills pull-right")
-        li
-          a(href="#") Home
-      h3(class="text-muted") NecuKuci Travel Tracker
+      // ul(class="nav nav-pills pull-right")
+        // li
+          // - a(href="#") Home
+      h1(class="text-primary text-center titleText") NecuKuci Travel Tracker
+        i(class="fas fa-globe-americas")
     div(id="signupSuccess", class="alert alert-success", style="display:none")
       p(id="signupSuccessText") Thanks for signing up! You'll be among the first to know when we launch.
     div(id="signupDuplicate", class="alert alert-success", style="display:none")
       p(id="signupDuplicateText") Fear not, you're already on the list! You'll be among the first to know when we launch.
     div(id="signupError", class="alert alert-info", style="display:none")
       p(id="signupErrorText") Well this is embarrassing. It looks like we're having trouble getting you on the list.
-    div(class="jumbotron")
-      h1 The next big thing is coming...
-      p(class="lead") We're pretty thrilled to unveil our latest creation. Sign up below to be notified when we officially launch!
-      p
-        a(class="btn btn-lg btn-success", data-toggle="modal", href="#signupModal") Sign up today
-        a(class="btn btn-lg btn-info", onclick="window.location.href='https://beta.necukuci.rs';") Visit Beta Website
+    div(class="container")
+      div(class="jumbotron descriptionText whiteTransparentBkg")
+        p
+          span(class="descriptionTitle font-weight-bold") Ever wanted to look back or share your travels?
+        p
+          span(class="descriptionText") We're excited to announce <strong>NecuKuci</strong> travel tracker!!!
+        p
+          span(class="descriptionText") If you are a backpacker, digital nomad or just an occasional traveler this is a perfect app for you. Sign up below to be notified when we officially launch.
+        p
+          span(class="descriptionText") You can also visit beta website and check out our progress!
+
+        div(class="btn-toolbar")
+          a(class="btn btn-lg btn-primary btn-success", data-toggle="modal", href="#signupModal") Sign up now
+          a(class="btn btn-lg btn-secondary btn-info", onclick="window.location.href='http://beta.necukuci.rs';") Visit beta website
 
     div(class="footer")
       p &copy; NecuKuci 2018
-      
+
     // Modal
     div(class="modal fade", id="signupModal", tabindex="-1", role="dialog", aria-labelledby="signupModal", aria-hidden="true")
       div(class="modal-dialog")
