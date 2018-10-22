@@ -11,13 +11,13 @@ exports.get_location_params = function (awsConfig, userId, history, detailLevel,
       // ':geoHashTime': '3898017947583216931_1533485',
       // history is in days, so convert to millis first
       ':utcMillis': currentTime - parseInt(history, 10) * 24 * 60 * 60 * 1000,
-      // ':topic': 'PHRASE'
+      ':locationProviderTag': 'locationCallback'
     },
     // When reading from table with geoHash_Time as sort key
     // KeyConditionExpression: 'userId = :user and begins_with(geoHash_Time, :geoHashTime)',
     // When reading from GSI with time as sort key
     KeyConditionExpression: 'userId = :user and utcTimeMillis >= :utcMillis',
-    // FilterExpression: 'contains (Subtitle, :topic)',
+    FilterExpression: 'NOT contains (tags, :locationProviderTag)',
     TableName: awsConfig.aws_location_table_name,
     IndexName: awsConfig.aws_location_table_index,
     ProjectionExpression: 'latitude, longitude, utcTimeMillis',
