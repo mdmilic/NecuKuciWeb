@@ -4,6 +4,10 @@ exports.putItem = function (params) {
   return ddb.put(params).promise();
 };
 
+exports.getItem = function (params) {
+  return ddb.get(params).promise();
+};
+
 // Modified from better generic method which uses TS https://www.talentica.com/blogs/dynamo-db-pagination/
 exports.performPaginatedQuery = function (params, tableLastEvaluatedKeyFieldNames) {
   return new Promise((resolve, reject) => {
@@ -59,4 +63,3 @@ function prepareLastEvaluatedKeyString(dataObj, tableLastEvaluatedKeyFieldNames)
   }
   return key;
 }
-

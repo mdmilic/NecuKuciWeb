@@ -1,11 +1,11 @@
 exports.post_signup = function (tableName, emailSubmitted, nameSubmitted, previewPreference) {
   return {
     TableName: tableName,
-      Item: {
-        email: emailSubmitted,
-        name: nameSubmitted,
-        preview: previewPreference
-      }
+    Item: {
+      email: emailSubmitted,
+      name: nameSubmitted,
+      preview: previewPreference
+    }
   }
 };
 

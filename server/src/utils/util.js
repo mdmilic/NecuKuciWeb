@@ -9,7 +9,7 @@ module.exports = {
     return isDev;
   },
 
-  requireAWSConfig() {
+  requireAWSConfig() { // TODO: Move to config.js file
     if (isDevEnvironment()) {
       return require('../awsconfig/config').aws_test_config;
     } else {
