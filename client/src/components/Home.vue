@@ -1,18 +1,19 @@
 <template>
-  <div class="container-fluid p-0">
+  <NecuKuciMap v-bind:userId='userName'></NecuKuciMap>
+<!--  <div class="container-fluid p-0">
     <div class="row border no-gutters">
       <div class="col-sm-6 col-md-9">
-        <!-- The map goes here -->
+        &lt;!&ndash; The map goes here &ndash;&gt;
         <NecuKuciMap v-bind:userId='userName'></NecuKuciMap>
       </div>
       <div class="col-sm-6 col-md-3">
-        <!-- The IG feed goes here -->
-        <!--<div>SUBSCRIBE</div>-->
+        &lt;!&ndash; The IG feed goes here &ndash;&gt;
+        &lt;!&ndash;<div>SUBSCRIBE</div>&ndash;&gt;
         <ImageFeed/>
       </div>
-      <!--The rest of the app goes here-->
+      &lt;!&ndash;The rest of the app goes here&ndash;&gt;
     </div>
-  </div>
+  </div>-->
 </template>
 
 <script>

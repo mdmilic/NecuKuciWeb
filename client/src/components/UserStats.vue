@@ -1,5 +1,5 @@
 <template>
-  <div>Hello stats</div>
+  <div>Travel statistics coming soon</div>
 </template>
 
 <script>

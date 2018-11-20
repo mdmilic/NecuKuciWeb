@@ -1,14 +1,40 @@
 <template>
-  <div id="map"></div>
+  <div id="map">
+    <div id="sidebar" class="leaflet-sidebar collapsed">
+      <!-- Nav tabs -->
+      <div class="leaflet-sidebar-tabs">
+        <ul role="tablist"> <!-- top aligned tabs -->
+          <li><a href="#instagram-feed" role="tab"><i class="fas fa-image"></i></a></li>
+          <li><a href="#profile" role="tab"><i class="fas fa-chart-line"></i></a></li>
+          <li><a href="https://www.instagram.com/hello_world_kat_and_mark/" role="tab" target="_blank"><i class="fab fa-instagram"></i></a></li>
+        </ul>
+      </div>
+
+      <!-- Tab panes -->
+      <div class="leaflet-sidebar-content">
+        <div class="leaflet-sidebar-pane" id="instagram-feed">
+          <h1 class="leaflet-sidebar-header">Instagram Feed<div class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></div></h1>
+          <ImageFeed/>
+        </div>
+        <div class="leaflet-sidebar-pane" id="profile">
+          <h1 class="leaflet-sidebar-header">Travel Statistics<div class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></div></h1>
+          <UserStats/>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+import ImageFeed from './ImageFeed';
+import UserStats from './UserStats';
 import locationService from '@/services/locationService';
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('userStats');
 require('leaflet-spin');
 
 const L = require('leaflet');
+require('leaflet-sidebar-v2');
 
 // OpenStreetMap
 // const mapUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -26,6 +52,10 @@ export default {
       required: false,
       default: 'us-east-1:9cdd84bc-87a3-4bd7-9371-d0ddba8f3bfd'
     }
+  },
+  components: {
+    UserStats,
+    ImageFeed
   },
   data: function () {
     return {
@@ -76,12 +106,36 @@ export default {
         minZoom: 2,
         accessToken: mapAccessToken
       }).addTo(this.map);
-      L.control.scale().addTo(this.map);
+
       // OpenStreetMap
       // L.tileLayer(mapUrl, {
       //   maxZoom: 18,
       //   attribution: mapAttribution
       // }).addTo(this.map);
+      L.control.scale().addTo(this.map);
+
+      L.control.sidebar({
+        autopan: false,       // whether to maintain the centered map point when opening the sidebar
+        closeButton: true,    // whether t add a close button to the panes
+        container: 'sidebar', // the DOM container or #ID of a predefined sidebar container that should be used
+        position: 'left'     // left or right
+      }).addTo(this.map);
+      //
+      // /* add a new panel */
+      // let panelContent = {
+      //   id: 'userinfo',                     // UID, used to access the panel
+      //   tab: '<i class="fa fa-gear"></i>',  // content can be passed as HTML string,
+      //   pane: '<p>Some text blah blah</p>',        // DOM elements can be passed, too
+      //   title: 'Your Profile',              // an optional pane header
+      //   position: 'bottom'                  // optional vertical alignment, defaults to 'top'
+      // };
+      // sidebar.addPanel(panelContent);
+      // /* add an external link */
+      // sidebar.addPanel({
+      //   id: 'ghlink',
+      //   tab: '<i class="fa fa-github"></i>',
+      //   button: 'https://github.com/nickpeihl/leaflet-sidebar-v2'
+      // });
     },
     async initLayers (userId) {
       console.log('Loading path for user: ' + userId);
@@ -142,6 +196,10 @@ export default {
 <style scoped>
   @import url('https://api.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css');
   @import url('https://unpkg.com/leaflet@1.3.4/dist/leaflet.css');
+  @import url('http://www.npeihl.com/leaflet-sidebar-v2/css/leaflet-sidebar.css');
+  /* TODO: Move font awsome to using FA vue components from https://fontawesome.com/how-to-use/on-the-web/using-with/vuejs */
+  /*@import url('http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');*/
+  @import url('https://use.fontawesome.com/releases/v5.5.0/css/all.css');
     /*<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"*/
     /*integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="*/
     /*crossorigin=""/>*/
