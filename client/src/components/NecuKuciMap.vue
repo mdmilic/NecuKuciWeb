@@ -1,19 +1,22 @@
 <template>
-  <div id="map" class=""></div>
+  <div id="map"></div>
 </template>
 
 <script>
+import locationService from '@/services/locationService';
+import { createNamespacedHelpers } from 'vuex';
+const { mapState, mapActions } = createNamespacedHelpers('userStats');
 require('leaflet-spin');
+
 const L = require('leaflet');
-const utils = require('../utils/util');
-// const {apiHTTP} = require('../services/NecuKuciAPI');
-const {apiHTTP} = require('@/services/NecuKuciAPI');
+
+// OpenStreetMap
 // const mapUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+// const mapAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+// Mapbox
 const mapAccessToken = 'pk.eyJ1IjoibWRtaWxpYyIsImEiOiJjam0xaGkxdHAwNDI4M2xxcjFrNWZqN3czIn0.E_DqxkPrVuJCkeNxGX0PAg';
-// const mapAttribution = '© <a href="https://www.mapbox.com/feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
 const mapAttribution = '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>';
 const mapUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}';
-// const mapAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
 export default {
   name: 'NecuKuciMap',
@@ -34,23 +37,29 @@ export default {
     };
   },
   created: function () {
-    console.log('Vue is created: ' + this.$router);
     console.log('Vue is created for user: ' + this.currentUser);
   },
   mounted: function () {
-    console.log('Vue is mounted: ' + this.$router);
     console.log('Vue is mounted for user: ' + this.currentUser);
     this.initMap();
     this.initLayers(this.currentUser);
+    this.setCurrentPosition(this.currentUser);
   },
-  watch: {
+  watch: { // TODO: Move to computed
     userId: function (to, from) {
       console.log('Map userId property changed from ' + from + ' to ' + to);
       this.currentUser = to;
       this.initLayers(to);
     }
   },
+  computed: mapState([
+    'userStatsState',
+    'userStats'
+  ]),
   methods: {
+    ...mapActions([
+      'fetchUserStats'
+    ]),
     initMap () {
       this.map = L.map('map', {
         zoomDelta: 0.5,
@@ -68,7 +77,7 @@ export default {
         accessToken: mapAccessToken
       }).addTo(this.map);
       L.control.scale().addTo(this.map);
-
+      // OpenStreetMap
       // L.tileLayer(mapUrl, {
       //   maxZoom: 18,
       //   attribution: mapAttribution
@@ -76,15 +85,10 @@ export default {
     },
     async initLayers (userId) {
       console.log('Loading path for user: ' + userId);
-      this.map.spin(true);
+      this.showSpinner();
       try {
-        let locationRequest;
-        if (utils.isDevEnv()) {
-          locationRequest = 'location?userId=us-east-1:2c51dbcf-f6b2-41c3-82c1-1a853ed05f3f&history=180&detail_level=15';
-        } else {
-          locationRequest = 'location?userId=us-east-1:9cdd84bc-87a3-4bd7-9371-d0ddba8f3bfd&history=180&detail_level=15';
-        }
-        const response = await apiHTTP.get(locationRequest);
+        const response = await locationService.getUserLocation();
+
         // JSON responses are automatically parsed.
         // console.log('Got response from the server ' + JSON.stringify(response, undefined, 2));
         let points = [];
@@ -110,19 +114,26 @@ export default {
         // https://leafletjs.com/reference-1.3.4.html#map-fitbounds
         // this.map.flyTo([40, 100], 4);
       } catch (e) {
-        console.log('Got Error response from the server ' + e);
+        console.error('Got Error response from the server while trying to load route for user' + userId, e);
         this.errors.push(e);
       } finally {
-        this.map.spin(false);
-        // this.hideSpinner();
+        this.hideSpinner();
       }
       // this.$router.push({ name: 'UserMap', params: { userId: 'mdmilic' } });
     },
+    async setCurrentPosition (userId) {
+      console.log('Initial state: ' + this.userStatsState);
+      await this.fetchUserStats(userId);
+      console.log('Final state: ' + this.userStatsState);
+      const marker = L.marker([this.userStats.lastKnownLat, this.userStats.lastKnownLng]);
+      marker.bindPopup('<b>Last seen on:</b><br>' + new Date(this.userStats.lastSeen).toString()).openPopup();
+      marker.addTo(this.map);
+    },
     showSpinner () {
-      document.getElementById('mapSpinner').style.display = 'block';
+      this.map.spin(true);
     },
     hideSpinner () {
-      document.getElementById('mapSpinner').style.display = 'none';
+      this.map.spin(false);
     }
   }
 };

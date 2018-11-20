@@ -1,7 +1,11 @@
 <template>
+  <div>Hello stats</div>
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex';
+const { mapState, mapActions } = createNamespacedHelpers('userStats');
+
 export default {
   name: 'UserStats',
   props: {
@@ -9,10 +13,6 @@ export default {
       type: String,
       required: false,
       default: 'us-east-1:9cdd84bc-87a3-4bd7-9371-d0ddba8f3bfd'
-    },
-    userLocations: {
-      type: String,
-      required: true
     }
   },
   data: function () {
@@ -44,18 +44,40 @@ export default {
   created: function () {
   },
   mounted: function () {
-    this.extractStats(this.currentUser);
+    this.loadStats(this.currentUser);
   },
   watch: {
     userId: function (to, from) {
       this.currentUser = to;
-      this.extractStats(to);
+      this.fetchUserStats(to);
     }
   },
+  computed: mapState([
+    'userStatsState',
+    'userStats'
+  ]),
   methods: {
-      extractStats (userId) {
+    ...mapActions([
+      'fetchUserStats'
+    ]),
+    async loadStats (userId) {
+      console.log('Loading stats for user: ' + userId);
+      this.showSpinner();
+      try {
+        await this.fetchUserStats(userId);
+      } catch (e) {
+        console.error('Got Error response from the server while tryong to load stats for user' + userId, e);
+        this.errors.push(e);
+      } finally {
+        this.hideSpinner();
       }
+    },
+    showSpinner () {
+    },
+    hideSpinner () {
+    }
   }
+};
 </script>
 
 <style scoped>
