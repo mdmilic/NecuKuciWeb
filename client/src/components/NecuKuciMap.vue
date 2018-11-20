@@ -13,7 +13,7 @@
       <!-- Tab panes -->
       <div class="leaflet-sidebar-content">
         <div class="leaflet-sidebar-pane" id="instagram-feed">
-          <h1 class="leaflet-sidebar-header">Instagram Feed<div class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></div></h1>
+          <h1 class="leaflet-sidebar-header">Media Feed<div class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></div></h1>
           <ImageFeed/>
         </div>
         <div class="leaflet-sidebar-pane" id="profile">
