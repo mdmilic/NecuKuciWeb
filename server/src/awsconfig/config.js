@@ -5,7 +5,7 @@ module.exports = {
     aws_signup_table: 'necukuci-signup-table',
     aws_location_table_name: 'necukuci-mobilehub-725813148-GeoStoreTest',
     aws_location_table_index: 'userId-utcTimeMillis',
-    aws_user_stats_table_name: 'necukuci-mobilehub-725813148-UserStatsTest'
+    aws_user_stats_table_name: 'necukuci-mobilehub-725813148-UserStats'
   },
   aws_prod_config: {
     aws_region: 'us-east-1',
