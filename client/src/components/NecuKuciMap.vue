@@ -7,6 +7,7 @@
           <li><a href="#instagram-feed" role="tab"><i class="fas fa-image"></i></a></li>
           <li><a href="#profile" role="tab"><i class="fas fa-chart-line"></i></a></li>
           <li><a href="https://www.instagram.com/hello_world_kat_and_mark/" role="tab" target="_blank"><i class="fab fa-instagram"></i></a></li>
+          <li><a href="https://www.youtube.com/c/helloworldkatandmark/" role="tab" target="_blank"><i class="fab fa-youtube"></i></a></li>
         </ul>
       </div>
 
@@ -196,6 +197,7 @@ export default {
 <style scoped>
   @import url('https://api.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css');
   @import url('https://unpkg.com/leaflet@1.3.4/dist/leaflet.css');
+  /* TODO: Start using local copy of leaflet-sidebar.css */
   @import url('http://www.npeihl.com/leaflet-sidebar-v2/css/leaflet-sidebar.css');
   /* TODO: Move font awsome to using FA vue components from https://fontawesome.com/how-to-use/on-the-web/using-with/vuejs */
   /*@import url('http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');*/
