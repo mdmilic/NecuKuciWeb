@@ -1,5 +1,19 @@
 <template>
-  <div>Travel statistics coming soon</div>
+  <div>
+    <!--<div><i class="fas fa-mountain"></i> Highest speed: {{ userStats }}</div>-->
+    <div><i class="fas fa-home"></i> Home country: {{ userStats.homeCountry }}</div>
+    <!--<div><i class="fas fa-mountain"></i> Distance from home: {{ userStats.homeCountry }}km</div>-->
+    <!--<div><i class="fas fa-mountain"></i> Distance traveled: {{ userStats.homeCountry }}km</div>-->
+    <div><i class="fas fa-mountain"></i> Highest speed: {{ Math.round(userStats.maxSpeed) }}m</div>
+    <div><i class="fas fa-mountain"></i> Highest altitude: {{ Math.round(userStats.maxAltitude) }}m</div>
+    <div><i class="fas fa-mountain"></i> Lowest altitude: {{ Math.round(userStats.minAltitude) }}m</div>
+    <div><i class="fas fa-flag"></i> Number of countries visited: {{ userStats.countriesVisited.values.length }}</div>
+    <div><i class="fas fa-globe-americas"></i> Number of continents visited: {{ userStats.continentsVisited.values.length }}</div>
+    <div><i class="fas fa-mountain"></i> Most eastern point: {{ userStats.furthestWent['FURTHEST_EAST_LAT'].toFixed(2) }}, {{ userStats.furthestWent['FURTHEST_EAST_LNG'].toFixed(2) }}</div>
+    <div><i class="fas fa-mountain"></i> Most western point: {{ userStats.furthestWent['FURTHEST_WEST_LAT'].toFixed(2) }}, {{ userStats.furthestWent['FURTHEST_WEST_LNG'].toFixed(2) }}</div>
+    <div><i class="fas fa-mountain"></i> Most northern point: {{ userStats.furthestWent['FURTHEST_NORTH_LAT'].toFixed(2) }}, {{ userStats.furthestWent['FURTHEST_NORTH_LNG'].toFixed(2) }}</div>
+    <div><i class="fas fa-mountain"></i> Most southern point: {{ userStats.furthestWent['FURTHEST_SOUTH_LAT'].toFixed(2) }}, {{ userStats.furthestWent['FURTHEST_SOUTH_LNG'].toFixed(2) }}</div>
+  </div>
 </template>
 
 <script>
