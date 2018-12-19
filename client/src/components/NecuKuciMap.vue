@@ -33,6 +33,7 @@ import locationService from '@/services/locationService';
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('userStats');
 require('leaflet-spin');
+require('leaflet-polylinedecorator');
 
 const L = require('leaflet');
 require('leaflet-sidebar-v2');
@@ -101,7 +102,8 @@ export default {
 
       // https://www.mapbox.com/api-documentation/#the-style-object
       // https://stackoverflow.com/questions/37166172/mapbox-tiles-and-leafletjs
-      L.tileLayer(mapUrl, {id: 'mapbox.streets',
+      // L.tileLayer(mapUrl, {id: 'mapbox.streets', // This map is local language by default
+      L.tileLayer(mapUrl, {id: 'mapbox.run-bike-hike', // This map is all English by default
         attribution: mapAttribution,
         maxZoom: 14,
         minZoom: 2,
@@ -110,7 +112,8 @@ export default {
 
       // OpenStreetMap
       // L.tileLayer(mapUrl, {
-      //   maxZoom: 18,
+      //   maxZoom: 14,
+      //   minZoom: 2,
       //   attribution: mapAttribution
       // }).addTo(this.map);
       L.control.scale().addTo(this.map);
@@ -154,12 +157,32 @@ export default {
         });
 
         let route = new L.Polyline(points, {
-          color: 'red',
-          weight: 3,
-          opacity: 0.5,
+          color: 'blue',
+          weight: 2,
+          stroke: true,
+          opacity: 0.6,
           smoothFactor: 1
         });
         route.addTo(this.map);
+        L.polylineDecorator(route, {
+          patterns: [
+            // defines a pattern of 10px-wide dashes, repeated every 20px on the line
+            {offset: 0,
+              repeat: 200,
+              symbol: L.Symbol.arrowHead(
+                {pixelSize: 7,
+                  polygon: false,
+                  headAngle: 60,
+                  pathOptions: {
+                    color: 'blue',
+                    stroke: true,
+                    opacity: 1.0,
+                    fillOpacity: 1,
+                    weight: 2
+                  }
+                })}
+          ]
+        }).addTo(this.map);
         this.map.fitBounds(route.getBounds(), {
           padding: [50, 50],
           maxZoom: 6,
