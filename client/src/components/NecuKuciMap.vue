@@ -218,16 +218,14 @@ export default {
 </script>
 
 <style scoped>
+  /* TODO: Start using css loader */
   @import url('https://api.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css');
-  @import url('https://unpkg.com/leaflet@1.3.4/dist/leaflet.css');
+  @import url('https://unpkg.com/leaflet@1.6.0/dist/leaflet.css');
   /* TODO: Start using local copy of leaflet-sidebar.css */
-  @import url('http://www.npeihl.com/leaflet-sidebar-v2/css/leaflet-sidebar.css');
+  @import url('https://cdn.jsdelivr.net/npm/leaflet-sidebar-v2@3.2.2/css/leaflet-sidebar.css');
   /* TODO: Move font awsome to using FA vue components from https://fontawesome.com/how-to-use/on-the-web/using-with/vuejs */
-  /*@import url('http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');*/
   @import url('https://use.fontawesome.com/releases/v5.5.0/css/all.css');
-    /*<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"*/
-    /*integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="*/
-    /*crossorigin=""/>*/
+
   #map {
     height: 100vh;
   }
