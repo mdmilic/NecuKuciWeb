@@ -206,6 +206,7 @@ export default {
       const marker = L.marker([this.userStats.lastKnownLat, this.userStats.lastKnownLng]);
       marker.bindPopup('<b>Last seen on:</b><br>' + new Date(this.userStats.lastSeen).toString()).openPopup();
       marker.addTo(this.map);
+      this.map.flyTo([this.userStats.lastKnownLat, this.userStats.lastKnownLng]);
     },
     showSpinner () {
       this.map.spin(true);
