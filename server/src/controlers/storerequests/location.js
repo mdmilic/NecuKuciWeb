@@ -1,16 +1,12 @@
 // https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_Query.html
-exports.get_location_params = function (awsConfig, userId, history, detailLevel, lastEvaluatedKey) {
-  const currentTime = Date.now();
-  console.log('Current time: ' + currentTime);
-  console.log('Past time: ' + history);
-  console.log('Past time: ' + parseInt(history, 10));
+exports.get_location_params = function (awsConfig, userId, lastSeen, history, detailLevel, lastEvaluatedKey) {
   return {
     ExpressionAttributeValues: {
       ':user': userId,
       // TODO Make this conditional if history or detail level is present
       // ':geoHashTime': '3898017947583216931_1533485',
       // history is in days, so convert to millis first
-      ':utcMillis': currentTime - parseInt(history, 10) * 24 * 60 * 60 * 1000,
+      ':utcMillis': lastSeen - parseInt(history, 10) * 24 * 60 * 60 * 1000,
       ':locationProviderTag': 'locationCallback'
     },
     // When reading from table with geoHash_Time as sort key

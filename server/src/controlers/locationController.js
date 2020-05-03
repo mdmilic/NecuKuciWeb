@@ -1,6 +1,7 @@
 // Load the AWS SDK for JavaScript
 const utils = require('../utils/util');
 const params = require('./storerequests/location');
+const paramsUserStats = require('./storerequests/userStats');
 const ddbUtil = require('./ddbUtils');
 
 const awsConfig = utils.requireAWSConfig();
@@ -15,7 +16,10 @@ exports.getLocation = async function(request, response, next) {
   console.log(startTime + ' Received params: ' + JSON.stringify({userId, history, detailLevel}));
 
   try {
-    let locationParams = params.get_location_params(awsConfig, userId, history, detailLevel, undefined);
+    let statsParams = paramsUserStats.get_user_stats_params(awsConfig.aws_user_stats_table_name, userId);
+    const userStats = await ddbUtil.getItem(statsParams);
+
+    let locationParams = params.get_location_params(awsConfig, userId, userStats.Item.lastSeen, history, detailLevel, undefined);
     const queryResult = await ddbUtil.performPaginatedQuery(locationParams, ['utcTimeMillis', 'userId']);
     // console.log('Query worked: ' + JSON.stringify(queryResult, undefined, 2));
 
