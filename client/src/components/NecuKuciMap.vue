@@ -39,12 +39,12 @@ const L = require('leaflet');
 require('leaflet-sidebar-v2');
 
 // OpenStreetMap
-// const mapUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-// const mapAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+const mapUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const mapAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 // Mapbox
-const mapAccessToken = 'pk.eyJ1IjoibWRtaWxpYyIsImEiOiJjam0xaGkxdHAwNDI4M2xxcjFrNWZqN3czIn0.E_DqxkPrVuJCkeNxGX0PAg';
-const mapAttribution = '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>';
-const mapUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}';
+// const mapAccessToken = 'pk.eyJ1IjoibWRtaWxpYyIsImEiOiJjam0xaGkxdHAwNDI4M2xxcjFrNWZqN3czIn0.E_DqxkPrVuJCkeNxGX0PAg';
+// const mapAttribution = '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>';
+// const mapUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}';
 
 export default {
   name: 'NecuKuciMap',
@@ -103,19 +103,19 @@ export default {
       // https://www.mapbox.com/api-documentation/#the-style-object
       // https://stackoverflow.com/questions/37166172/mapbox-tiles-and-leafletjs
       // L.tileLayer(mapUrl, {id: 'mapbox.streets', // This map is local language by default
-      L.tileLayer(mapUrl, {id: 'mapbox.run-bike-hike', // This map is all English by default
-        attribution: mapAttribution,
-        maxZoom: 14,
-        minZoom: 2,
-        accessToken: mapAccessToken
-      }).addTo(this.map);
-
-      // OpenStreetMap
-      // L.tileLayer(mapUrl, {
+      // L.tileLayer(mapUrl, {id: 'mapbox.satellite',
+      //   attribution: mapAttribution,
       //   maxZoom: 14,
       //   minZoom: 2,
-      //   attribution: mapAttribution
+      //   accessToken: mapAccessToken
       // }).addTo(this.map);
+
+      // OpenStreetMap
+      L.tileLayer(mapUrl, {
+        maxZoom: 14,
+        minZoom: 2,
+        attribution: mapAttribution
+      }).addTo(this.map);
       L.control.scale().addTo(this.map);
 
       L.control.sidebar({
@@ -220,7 +220,8 @@ export default {
 
 <style scoped>
   /* TODO: Start using css loader */
-  @import url('https://api.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css');
+  /*@import url('https://api.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css');*/
+  @import url('https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css');
   @import url('https://unpkg.com/leaflet@1.6.0/dist/leaflet.css');
   /* TODO: Start using local copy of leaflet-sidebar.css */
   @import url('https://cdn.jsdelivr.net/npm/leaflet-sidebar-v2@3.2.2/css/leaflet-sidebar.css');
